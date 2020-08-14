@@ -1,0 +1,13 @@
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.exe
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.deps.json
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.runtimeconfig.json
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.runtimeconfig.dev.json
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.AssemblyInfoInputs.cache
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.AssemblyInfo.cs
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.genruntimeconfig.cache
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.dll
+C:\POCs\Richter.MutationTest\Richter.MutationTest\bin\Debug\netcoreapp3.1\Richter.MutationTest.pdb
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.csprojAssemblyReference.cache
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.csproj.CoreCompileInputs.cache
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.dll
+C:\POCs\Richter.MutationTest\Richter.MutationTest\obj\Debug\netcoreapp3.1\Richter.MutationTest.pdb
