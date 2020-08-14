@@ -17,8 +17,6 @@
             
         ],
         "excluded-mutations": [
-            "string",
-            "Logical operators"
         ],
         "ignore-methods": [
             

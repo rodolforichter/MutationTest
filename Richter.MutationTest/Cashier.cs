@@ -8,32 +8,32 @@ namespace Richter.MutationTest
     {
         #region Attributes
 
-        private IList<MoneyValue> _money = new List<MoneyValue> {
-            new MoneyValue(0.01M, MoneyType.Coin),
-            new MoneyValue(0.05M, MoneyType.Coin),
-            new MoneyValue(0.10M, MoneyType.Coin),
-            new MoneyValue(0.25M, MoneyType.Coin),
-            new MoneyValue(0.50M, MoneyType.Coin),
-            new MoneyValue(1.00M, MoneyType.Coin),
-            new MoneyValue(2.00M, MoneyType.BankNote),
-            new MoneyValue(5.00M, MoneyType.BankNote),
-            new MoneyValue(10.00M, MoneyType.BankNote),
-            new MoneyValue(20.00M, MoneyType.BankNote),
-            new MoneyValue(50.00M, MoneyType.BankNote),
-            new MoneyValue(100.00M, MoneyType.BankNote)
+        private IList<Money> _money = new List<Money> {
+            new Money(0.01M, MoneyType.Coin),
+            new Money(0.05M, MoneyType.Coin),
+            new Money(0.10M, MoneyType.Coin),
+            new Money(0.25M, MoneyType.Coin),
+            new Money(0.50M, MoneyType.Coin),
+            new Money(1.00M, MoneyType.Coin),
+            new Money(2.00M, MoneyType.BankNote),
+            new Money(5.00M, MoneyType.BankNote),
+            new Money(10.00M, MoneyType.BankNote),
+            new Money(20.00M, MoneyType.BankNote),
+            new Money(50.00M, MoneyType.BankNote),
+            new Money(100.00M, MoneyType.BankNote)
         };
 
-        private IList<MoneyValue> _moneyUnavailable;
+        private IList<Money>  _moneyUnavailable = new List<Money>();
 
         #endregion
 
-        public Cashier(IList<MoneyValue> moneyUnavailable)
+        public Cashier(IList<Money> moneyUnavailable)
         {
             moneyUnavailable = _moneyUnavailable;
         }
 
         public Cashier()
-        {
+        {   
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace Richter.MutationTest
         /// </summary>
         /// <param name="purchaseValue">purchaseValue</param>
         /// <param name="enterValue">enterValue</param>
-        /// <returns>IList<MoneyValue></returns>
-        public IList<MoneyValue> GetChangeMoney(decimal purchaseValue, decimal enterValue)
+        /// <returns>IList<Money></returns>
+        public IList<Money> GetChangeMoney(decimal purchaseValue, decimal enterValue)
         {
             return GetChangeMoney(new PurchaseValue { Value = purchaseValue }, enterValue);
         }
@@ -52,29 +52,29 @@ namespace Richter.MutationTest
         /// </summary>
         /// <param name="purchaseValue">purchaseValue</param>
         /// <param name="enterValue">enterValue</param>
-        /// <returns>IList<MoneyValue></returns>
-        private IList<MoneyValue> GetChangeMoney(PurchaseValue purchaseValue, decimal enterValue)
+        /// <returns>IList<Money></returns>
+        private IList<Money> GetChangeMoney(PurchaseValue purchaseValue, decimal enterValue)
         {
-            IList<MoneyValue> moneyChange = new List<MoneyValue>();
+            IList<Money> moneyChange = new List<Money>();
 
             if(enterValue < purchaseValue.Value)
             {
-                moneyChange.Add(new MoneyValue(enterValue - purchaseValue.Value, MoneyType.Unknown));
+                moneyChange.Add(new Money(enterValue - purchaseValue.Value, MoneyType.Unknown));
                 return moneyChange;
             }
 
             decimal changeMoney = enterValue - purchaseValue.Value;
 
-            while (changeMoney != 0)
+            while (changeMoney > 0)//!= 0)
             {
-                MoneyValue vlr = GetFirstOptionNote(changeMoney);
+                Money vlr = GetFirstOptionNote(changeMoney);
                 moneyChange.Add(vlr);
                 changeMoney = changeMoney - vlr.Value;
             }
             return moneyChange;
         }
 
-        private MoneyValue GetFirstOptionNote(decimal changeMoney)
+        private Money GetFirstOptionNote(decimal changeMoney)
         {
             return _money.Reverse().Where(x => x.Value <= changeMoney).FirstOrDefault();
         }

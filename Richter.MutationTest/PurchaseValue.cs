@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Richter.MutationTest
 {
-    public class PurchaseValue
+    public struct PurchaseValue
     {
         public decimal Value { get; set; }
     }
