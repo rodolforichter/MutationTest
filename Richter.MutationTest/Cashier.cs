@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Richter.MutationTest
 {
     public class Cashier
     {
-        public readonly IList<MoneyValue> _money = new List<MoneyValue> {
+        #region Attributes
+
+        private IList<MoneyValue> _money = new List<MoneyValue> {
             new MoneyValue(0.01M, MoneyType.Coin),
             new MoneyValue(0.05M, MoneyType.Coin),
             new MoneyValue(0.10M, MoneyType.Coin),
@@ -24,6 +25,8 @@ namespace Richter.MutationTest
 
         private IList<MoneyValue> _moneyUnavailable;
 
+        #endregion
+
         public Cashier(IList<MoneyValue> moneyUnavailable)
         {
             moneyUnavailable = _moneyUnavailable;
@@ -33,24 +36,34 @@ namespace Richter.MutationTest
         {
         }
 
-        public IList<MoneyValue> GetChangeMoney(decimal value, params MoneyValue[] moneyValues)
+        /// <summary>
+        /// Obtém o troco do cliente.
+        /// </summary>
+        /// <param name="purchaseValue">purchaseValue</param>
+        /// <param name="enterValue">enterValue</param>
+        /// <returns>IList<MoneyValue></returns>
+        public IList<MoneyValue> GetChangeMoney(decimal purchaseValue, decimal enterValue)
         {
-            return GetChangeMoney(moneyValues.ToList(), new PurchaseValue { Value = value });
+            return GetChangeMoney(new PurchaseValue { Value = purchaseValue }, enterValue);
         }
 
-        private IList<MoneyValue> GetChangeMoney(List<MoneyValue> clientMoney, PurchaseValue purchaseValue)
+        /// <summary>
+        /// Método que obtém o troco do cliente.
+        /// </summary>
+        /// <param name="purchaseValue">purchaseValue</param>
+        /// <param name="enterValue">enterValue</param>
+        /// <returns>IList<MoneyValue></returns>
+        private IList<MoneyValue> GetChangeMoney(PurchaseValue purchaseValue, decimal enterValue)
         {
             IList<MoneyValue> moneyChange = new List<MoneyValue>();
 
-            decimal totalInput = clientMoney.Sum(x => x.Value);
-
-            if(totalInput < purchaseValue.Value)
+            if(enterValue < purchaseValue.Value)
             {
-                moneyChange.Add(new MoneyValue(totalInput - purchaseValue.Value, MoneyType.Unknown));
+                moneyChange.Add(new MoneyValue(enterValue - purchaseValue.Value, MoneyType.Unknown));
                 return moneyChange;
             }
 
-            decimal changeMoney = totalInput - purchaseValue.Value;
+            decimal changeMoney = enterValue - purchaseValue.Value;
 
             while (changeMoney != 0)
             {
@@ -58,7 +71,6 @@ namespace Richter.MutationTest
                 moneyChange.Add(vlr);
                 changeMoney = changeMoney - vlr.Value;
             }
-
             return moneyChange;
         }
 

@@ -9,28 +9,26 @@ namespace Tests
 {
     public class ManagerNumbersTest
     {
-        [Theory]
-        [MemberData(nameof(Data))]
-        public void TestCashier_ShouldBeEqual(decimal valorCompra, params MoneyValue[] moneyValues)
-        {
-            Cashier cashier = new Cashier();
-
-            IList<MoneyValue> troco = cashier.GetChangeMoney(valorCompra, moneyValues);
-
-            decimal total = valorCompra + troco.Sum(x => x.Value);
-
-            decimal moneyClient =  moneyValues.Sum(x => x.Value);
-
-            Assert.Equal(total, moneyClient);
-        }
-
         public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
-            new object[] { 40.0D, new MoneyValue[]{ new MoneyValue(30.0M, MoneyType.BankNote) } },
-            new object[] { 40.0D, new MoneyValue[]{ new MoneyValue(50.0M, MoneyType.BankNote) } },
-            new object[] { 43.0D, new MoneyValue[]{ new MoneyValue(50.0M, MoneyType.BankNote) } },
-            new object[] { 42.25D, new MoneyValue[]{ new MoneyValue(50.0M, MoneyType.BankNote) } }
+            new object[] { 40.0D, 30.0M },
+            new object[] { 40.0D, 50.0M },
+            new object[] { 43.0D, 50.0M },
+            new object[] { 42.25D, 50.0M }
         };
+
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void Test_Caixa_TrocoMaisTotalCompra_Eh_DinheiroDadoCliente(decimal valorCompra, decimal valorEntrada)
+        {
+            Cashier cashier = new Cashier();
+
+            IList<MoneyValue> troco = cashier.GetChangeMoney(valorCompra, valorEntrada);
+
+            decimal total = valorCompra + troco.Sum(x => x.Value);            
+
+            Assert.Equal(total, valorEntrada);
+        }
     }
 }
