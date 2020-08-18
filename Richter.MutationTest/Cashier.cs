@@ -29,7 +29,7 @@ namespace Richter.MutationTest
 
         public Cashier(IList<Money> moneyUnavailable)
         {
-            moneyUnavailable = _moneyUnavailable;
+            _moneyUnavailable = moneyUnavailable;
         }
 
         public Cashier()
@@ -65,9 +65,15 @@ namespace Richter.MutationTest
 
             decimal changeMoney = enterValue - purchaseValue.Value;
 
-            while (changeMoney > 0)//!= 0)
+            while (changeMoney != 0)
             {
                 Money vlr = GetFirstOptionNote(changeMoney);
+
+                if (_moneyUnavailable != null && _moneyUnavailable.Contains(vlr))
+                {
+                    _money.Remove(vlr);
+                    continue;
+                }
                 moneyChange.Add(vlr);
                 changeMoney = changeMoney - vlr.Value;
             }
