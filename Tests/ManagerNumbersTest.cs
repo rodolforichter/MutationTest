@@ -47,7 +47,7 @@ namespace Tests
 
         [Theory]
         [MemberData(nameof(DataAllValuesUnAvailable))]
-        public void Test_Caixa_MoneyUnavailable_TrocoMaisTotalCompra_Igual_DinheiroDadoPeloCliente(decimal valorCompra, decimal valorEntrada, List<Money> trocoIndisponivel)
+        public void Test_Caixa_NotaOuMoedaIndisponivel_TrocoMaisTotalCompra_Igual_DinheiroDadoPeloCliente(decimal valorCompra, decimal valorEntrada, List<Money> trocoIndisponivel)
         {
             Cashier cashier = new Cashier(trocoIndisponivel);
 
