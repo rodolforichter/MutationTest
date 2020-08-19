@@ -14,7 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Richter.MutationTest\Richter.MutationTest.csproj" />
+    <ProjectReference Include="..\Richter.MutationModels\Richter.MutationModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StrykerOutput\" />
   </ItemGroup>
 
 </Project>

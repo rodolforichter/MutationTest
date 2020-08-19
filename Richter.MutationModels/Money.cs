@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Richter.MutationTest
+namespace Richter.MutationModels
 {
     public class Money : Value<Money>, IEquatable<Money>
     {
@@ -17,16 +17,10 @@ namespace Richter.MutationTest
         }
 
         #region Override Methods 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-            //return Value.GetHashCode() + MoneyType.GetHashCode();
-        }
-
+        
         public bool Equals([AllowNull] Money other)
         {
-            return base.Equals(other);
-            //return this.Value == other.Value && this.MoneyType == other.MoneyType;            
+            return base.Equals(other);           
         }
 
         #endregion

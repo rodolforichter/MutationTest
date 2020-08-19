@@ -4,10 +4,6 @@ C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\xunit.runner.utility.
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Tests.deps.json
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Tests.runtimeconfig.json
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Tests.runtimeconfig.dev.json
-C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfoInputs.cache
-C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfo.cs
-C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.genruntimeconfig.cache
-C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Richter.MutationTest.exe
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Tests.dll
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Tests.pdb
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
@@ -90,10 +86,13 @@ C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.Vis
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
-C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Richter.MutationTest.dll
-C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Richter.MutationTest.pdb
+C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Richter.MutationModels.dll
+C:\POCs\Richter.MutationTest\Tests\bin\Debug\netcoreapp3.1\Richter.MutationModels.pdb
 C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.csprojAssemblyReference.cache
+C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfoInputs.cache
+C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfo.cs
 C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.csproj.CoreCompileInputs.cache
 C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.csproj.CopyComplete
 C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.dll
 C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.pdb
+C:\POCs\Richter.MutationTest\Tests\obj\Debug\netcoreapp3.1\Tests.genruntimeconfig.cache

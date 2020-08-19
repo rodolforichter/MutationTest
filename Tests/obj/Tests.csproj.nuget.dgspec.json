@@ -4,14 +4,14 @@
     "C:\\POCs\\Richter.MutationTest\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\Richter.MutationTest.csproj": {
+    "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\Richter.MutationTest.csproj",
-        "projectName": "Richter.MutationTest",
-        "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\Richter.MutationTest.csproj",
+        "projectUniqueName": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj",
+        "projectName": "Richter.MutationModels",
+        "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj",
         "packagesPath": "C:\\Users\\rodolfo.richter\\.nuget\\packages\\",
-        "outputPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\obj\\",
+        "outputPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -87,8 +87,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\Richter.MutationTest.csproj": {
-                "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationTest\\Richter.MutationTest.csproj"
+              "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj": {
+                "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj"
               }
             }
           }
