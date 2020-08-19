@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Linq;
 using System.Collections;
-using System.Diagnostics.Contracts;
-using System.Net;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Richter.MutationModels
 {
