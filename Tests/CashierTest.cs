@@ -35,32 +35,28 @@ namespace Tests
 
         [Theory]
         [MemberData(nameof(FullAvailableChangeMoney))]
-        public void Test_Cashier_Full_Available_ChangeMoney_ShouldBeOk(decimal valorCompra, decimal valorEntrada)
+        public void Test_Cashier_Full_Available_ChangeMoney_ShouldBeOk(decimal purchaseValue, decimal customerMoneyValue)
         {
-            Cashier cashier = new Cashier();
+            IList<Money> changeMoney = new Cashier().GetChangeMoney(purchaseValue, customerMoneyValue);
 
-            IList<Money> troco = cashier.GetChangeMoney(valorCompra, valorEntrada);
+            decimal total = purchaseValue + changeMoney.Sum(x => x.Value);
 
-            decimal total = valorCompra + troco.Sum(x => x.Value);
-
-            Assert.Equal(total, valorEntrada);
+            Assert.Equal(total, customerMoneyValue);
         }
 
         [Theory]
         [MemberData(nameof(UnavailableChangeMoney))]
-        public void Test_Cashier_UnAvailable_ChangeMoney_ShouldBeOK(decimal valorCompra, decimal valorEntrada, List<Money> unAvailableChangeMoney)
+        public void Test_Cashier_UnAvailable_ChangeMoney_ShouldBeOK(decimal purchaseValue, decimal customerMoneyValue, List<Money> unAvailableChangeMoney)
         {
-            Cashier cashier = new Cashier(unAvailableChangeMoney);
+            IList<Money> changeMoney = new Cashier(unAvailableChangeMoney).GetChangeMoney(purchaseValue, customerMoneyValue);
 
-            IList<Money> troco = cashier.GetChangeMoney(valorCompra, valorEntrada);
+            decimal total = purchaseValue + changeMoney.Sum(x => x.Value);
 
-            decimal total = valorCompra + troco.Sum(x => x.Value);
-
-            bool resultNotContainMoney = unAvailableChangeMoney.TrueForAll(x => !troco.Contains(x));
+            bool resultNotContainMoney = unAvailableChangeMoney.TrueForAll(x => !changeMoney.Contains(x));
 
             Assert.True(resultNotContainMoney);
 
-            Assert.Equal(total, valorEntrada);
+            Assert.Equal(total, customerMoneyValue);
         }
 
         [Fact]
@@ -75,9 +71,7 @@ namespace Tests
                 { new Money(0.25M, MoneyType.Coin) },
                 { new Money(0.10M, MoneyType.Coin) }
             };
-
-            Cashier cashier = new Cashier(unAvailable);
-            Assert.Throws<InvalidChangeMoneyException>(() => cashier.GetChangeMoney(40.0M, 50.0M));
+            Assert.Throws<InvalidChangeMoneyException>(() => new Cashier(unAvailable).GetChangeMoney(40.0M, 50.0M));
         }
     }
 }
