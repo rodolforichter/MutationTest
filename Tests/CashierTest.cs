@@ -60,9 +60,9 @@ namespace Tests
         }
 
         [Fact]
-        public void Test_ChangeMoney_Exceed_Max_Qt_WaitFor_Exception()
+        public void Test_ChangeMoney_Exceed_Max_Count_WaitFor_Exception()
         {
-            IList<Money> unAvailable = new List<Money> {
+            IList<Money> unavailableChangeMoney = new List<Money> {
                 { new Money(10.0M, MoneyType.BankNote) },
                 { new Money(5.0M, MoneyType.BankNote) },
                 { new Money(2.0M, MoneyType.BankNote) },
@@ -71,7 +71,7 @@ namespace Tests
                 { new Money(0.25M, MoneyType.Coin) },
                 { new Money(0.10M, MoneyType.Coin) }
             };
-            Assert.Throws<InvalidChangeMoneyException>(() => new Cashier(unAvailable).GetChangeMoney(40.0M, 50.0M));
+            Assert.Throws<InvalidChangeMoneyException>(() => new Cashier(unavailableChangeMoney).GetChangeMoney(40.0M, 50.0M));
         }
     }
 }

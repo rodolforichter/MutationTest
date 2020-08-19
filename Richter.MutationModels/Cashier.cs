@@ -8,7 +8,7 @@ namespace Richter.MutationModels
     {
         #region Attributes
 
-        public const int MaxQuantityMoney = 50;
+        public const int MaxMoneyTypeItemsCount = 50;
 
         private IList<Money> _money = new List<Money> {
             new Money(0.01M, MoneyType.Coin),
@@ -95,7 +95,7 @@ namespace Richter.MutationModels
 
                 foreach (var count in countByMoneyType)
                 {
-                    if (count > MaxQuantityMoney)
+                    if (count > MaxMoneyTypeItemsCount)
                     {
                         throw new InvalidChangeMoneyException();
                     }
