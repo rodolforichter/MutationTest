@@ -12,7 +12,6 @@ namespace Tests
         new List<object[]>
         {
             new object[] { 40.0D, 40.0M },
-            new object[] { 40.0D, 30.0M },
             new object[] { 40.0D, 50.0M },
             new object[] { 43.0D, 50.0M },
             new object[] { 42.25D, 50.0M },
@@ -23,13 +22,11 @@ namespace Tests
         public static IEnumerable<object[]> UnavailableChangeMoney =>
         new List<object[]>
         {
-            new object[] { 40.0D, 40.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
-            new object[] { 40.0D, 30.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
-            new object[] { 40.0D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
+            new object[] { 40.0D, 40.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },         
             new object[] { 43.0D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
             new object[] { 42.25D, 50.0M, new List<Money> { { new Money(5.0M, MoneyType.BankNote) } } },
             new object[] { 2.21D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
-            new object[] { 42.24D, 50.0M, new List<Money> { { new Money(2.0M, MoneyType.BankNote) }, {new Money(0.25M, MoneyType.Coin) } } } };
+            new object[] { 42.24D, 50.0M, new List<Money> { { new Money(2.0M, MoneyType.BankNote) }, { new Money(0.25M, MoneyType.Coin) } } } };
 
         #endregion
 
@@ -72,6 +69,18 @@ namespace Tests
                 { new Money(0.10M, MoneyType.Coin) }
             };
             Assert.Throws<InvalidChangeMoneyException>(() => new Cashier(unavailableChangeMoney).GetChangeMoney(40.0M, 50.0M));
+        }
+
+        [Fact]
+        public void Test_PurchaseValue_MinorOrEqual_Zero_WaitFor_Exception()
+        {           
+            Assert.Throws<InvalidPurchaseValueException>(() => new Cashier().GetChangeMoney(0.0M, 50.0M));
+        }
+
+        [Fact]
+        public void Test_CustomerValue_MinorOrEqual_Zero_WaitFor_Exception()
+        {
+            Assert.Throws<InvalidCustomerValueException>(() => new Cashier().GetChangeMoney(50.0M, 0.0M));
         }
     }
 }

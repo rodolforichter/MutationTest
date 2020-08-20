@@ -46,7 +46,7 @@ namespace Richter.MutationModels
         /// <returns>IList<Money></returns>
         public IList<Money> GetChangeMoney(decimal purchaseValue, decimal enterValue)
         {
-            return GetChangeMoney(new PurchaseValue { Value = purchaseValue }, enterValue);
+            return GetChangeMoney(new PurchaseValue(purchaseValue), new CustomerValue(enterValue));
         }
 
         /// <summary>
@@ -55,23 +55,17 @@ namespace Richter.MutationModels
         /// <param name="purchaseValue">purchaseValue</param>
         /// <param name="enterValue">enterValue</param>
         /// <returns>IList<Money></returns>
-        private IList<Money> GetChangeMoney(PurchaseValue purchaseValue, decimal enterValue)
+        private IList<Money> GetChangeMoney(PurchaseValue purchaseValue, CustomerValue customerValue)
         {
             IList<Money> moneyChange = new List<Money>();
 
-            if(enterValue < purchaseValue.Value)
-            {
-                moneyChange.Add(new Money(enterValue - purchaseValue.Value, MoneyType.Unknown));
-                return moneyChange;
-            }
-
-            decimal changeMoney = enterValue - purchaseValue.Value;
+            decimal changeMoney = customerValue.Value - purchaseValue.Value;
 
             while (changeMoney != 0)
             {
                 Money vlr = GetFirstOptionNote(changeMoney);
 
-                if (_moneyUnavailable != null && _moneyUnavailable.Contains(vlr))
+                if (ContainsUnavailableMoney(vlr))
                 {
                     _money.Remove(vlr);
                     continue;
@@ -85,6 +79,20 @@ namespace Richter.MutationModels
             return moneyChange;
         }
 
+        /// <summary>
+        /// Verifica se existem notas ou moedas indisponíveis no caixa.
+        /// </summary>
+        /// <param name="vlr">Money</param>
+        /// <returns>bool</returns>
+        private bool ContainsUnavailableMoney(Money vlr)
+        {
+            return _moneyUnavailable != null && _moneyUnavailable.Contains(vlr);
+        }
+
+        /// <summary>
+        /// Verifica se a quantidade de notas que está sendo retornada é absurda.
+        /// </summary>
+        /// <param name="moneyChange">IList<Money></param>
         private void CheckMaxQuantityMoneyType(IList<Money> moneyChange)
         {
             if (moneyChange != null)
@@ -103,6 +111,11 @@ namespace Richter.MutationModels
             }
         }
 
+        /// <summary>
+        /// Obtém a Nota ou Moeda necessária para compor o troco.
+        /// </summary>
+        /// <param name="changeMoney"></param>
+        /// <returns></returns>
         private Money GetFirstOptionNote(decimal changeMoney)
         {
             return _money.Reverse().Where(x => x.Value <= changeMoney).FirstOrDefault();

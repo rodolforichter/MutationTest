@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Richter.MutationModels
 {
-    public struct PurchaseValue
+    public class CustomerValue
     {
         public decimal Value { get; private set; }
 
-        public PurchaseValue(decimal value)
+        public CustomerValue(decimal value)
         {
             Value = value;
             CheckValue();
@@ -14,9 +16,9 @@ namespace Richter.MutationModels
 
         private void CheckValue()
         {
-            if(Value <= 0)
+            if (Value <= 0)
             {
-                throw new InvalidPurchaseValueException();
+                throw new InvalidCustomerValueException();
             }
         }
     }
