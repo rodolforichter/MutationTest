@@ -8,31 +8,38 @@ namespace Tests
     public class CashierTest
     {
         #region Attributes
-        public static IEnumerable<object[]> FullAvailableChangeMoney =>
-        new List<object[]>
-        {
-            new object[] { 40.0D, 40.0M },
-            new object[] { 40.0D, 50.0M },
-            new object[] { 43.0D, 50.0M },
-            new object[] { 42.25D, 50.0M },
-            new object[] { 2.21D, 50.0M },
-            new object[] { 42.24D, 50.0M }
-        };
 
-        public static IEnumerable<object[]> UnavailableChangeMoney =>
-        new List<object[]>
+        public static IEnumerable<object[]> FullAvailableChangeMoney
         {
-            new object[] { 40.0D, 40.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },         
-            new object[] { 43.0D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
-            new object[] { 42.25D, 50.0M, new List<Money> { { new Money(5.0M, MoneyType.BankNote) } } },
-            new object[] { 2.21D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } },
-            new object[] { 42.24D, 50.0M, new List<Money> { { new Money(2.0M, MoneyType.BankNote) }, { new Money(0.25M, MoneyType.Coin) } } } };
+            get
+            {
+                yield return new object[] { 40.0D, 40.0M };
+                yield return new object[] { 40.0D, 50.0M };
+                yield return new object[] { 43.0D, 50.0M };
+                yield return new object[] { 42.25D, 50.0M };
+                yield return new object[] { 2.21D, 50.0M };
+                yield return new object[] { 42.24D, 50.0M };
+            }
+        }
+
+        public static IEnumerable<object[]> UnavailableChangeMoney
+        {
+            get
+            {
+                yield return new object[] { 40.0D, 40.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } };
+                yield return new object[] { 43.0D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } };
+                yield return new object[] { 42.25D, 50.0M, new List<Money> { { new Money(5.0M, MoneyType.BankNote) } } };
+                yield return new object[] { 2.21D, 50.0M, new List<Money> { { new Money(10.0M, MoneyType.BankNote) } } };
+                yield return new object[] { 42.24D, 50.0M, new List<Money> { { new Money(2.0M, MoneyType.BankNote) }, { new Money(0.25M, MoneyType.Coin) } } };
+            }
+        }
 
         #endregion
 
         [Theory]
         [MemberData(nameof(FullAvailableChangeMoney))]
-        public void Test_Cashier_Full_Available_ChangeMoney_ShouldBeOk(decimal purchaseValue, decimal customerMoneyValue)
+        [Trait("ReturnsOK-Troco", "Considera que caixa possui todas as Notas ou Moedas.")]
+        public void When_All_MoneyChangeAvailable_Returns_(decimal purchaseValue, decimal customerMoneyValue)
         {
             IList<Money> changeMoney = new Cashier().GetChangeMoney(purchaseValue, customerMoneyValue);
 
@@ -43,6 +50,7 @@ namespace Tests
 
         [Theory]
         [MemberData(nameof(UnavailableChangeMoney))]
+        [Trait("ReturnsOK-Troco", "Considera que caixa possui Notas ou Moedas indisponíveis.")]
         public void Test_Cashier_UnAvailable_ChangeMoney_ShouldBeOK(decimal purchaseValue, decimal customerMoneyValue, List<Money> unAvailableChangeMoney)
         {
             IList<Money> changeMoney = new Cashier(unAvailableChangeMoney).GetChangeMoney(purchaseValue, customerMoneyValue);
@@ -57,6 +65,7 @@ namespace Tests
         }
 
         [Fact]
+        [Trait("Wait-For-Exception", "Troco retornou muitos items do mesmo tipo")]
         public void Test_ChangeMoney_Exceed_Max_Count_WaitFor_Exception()
         {
             IList<Money> unavailableChangeMoney = new List<Money> {
@@ -72,12 +81,14 @@ namespace Tests
         }
 
         [Fact]
+        [Trait("Wait-For-Exception", "Valor da compra menor ou igual a 0")]
         public void Test_PurchaseValue_MinorOrEqual_Zero_WaitFor_Exception()
         {           
             Assert.Throws<InvalidPurchaseValueException>(() => new Cashier().GetChangeMoney(0.0M, 50.0M));
         }
 
         [Fact]
+        [Trait("Wait-For-Exception", "Valor dado pelo cliente igual a 0")]
         public void Test_CustomerValue_MinorOrEqual_Zero_WaitFor_Exception()
         {
             Assert.Throws<InvalidCustomerValueException>(() => new Cashier().GetChangeMoney(50.0M, 0.0M));

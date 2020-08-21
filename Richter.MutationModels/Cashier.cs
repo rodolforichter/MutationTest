@@ -65,7 +65,7 @@ namespace Richter.MutationModels
             {
                 Money vlr = GetFirstOptionNote(changeMoney);
 
-                if (ContainsUnavailableMoney(vlr))
+                if (IsUnavailableChangeMoney(vlr))
                 {
                     _money.Remove(vlr);
                     continue;
@@ -74,7 +74,7 @@ namespace Richter.MutationModels
                 changeMoney = changeMoney - vlr.Value;
             }
 
-            CheckMaxQuantityMoneyType(moneyChange);
+            CheckMaxQuantityByMoneyType(moneyChange);
 
             return moneyChange;
         }
@@ -84,7 +84,7 @@ namespace Richter.MutationModels
         /// </summary>
         /// <param name="vlr">Money</param>
         /// <returns>bool</returns>
-        private bool ContainsUnavailableMoney(Money vlr)
+        private bool IsUnavailableChangeMoney(Money vlr)
         {
             return _moneyUnavailable != null && _moneyUnavailable.Contains(vlr);
         }
@@ -93,7 +93,7 @@ namespace Richter.MutationModels
         /// Verifica se a quantidade de notas que está sendo retornada é absurda.
         /// </summary>
         /// <param name="moneyChange">IList<Money></param>
-        private void CheckMaxQuantityMoneyType(IList<Money> moneyChange)
+        private void CheckMaxQuantityByMoneyType(IList<Money> moneyChange)
         {
             if (moneyChange != null)
             {
@@ -115,7 +115,7 @@ namespace Richter.MutationModels
         /// Obtém a Nota ou Moeda necessária para compor o troco.
         /// </summary>
         /// <param name="changeMoney"></param>
-        /// <returns></returns>
+        /// <returns>Money</returns>
         private Money GetFirstOptionNote(decimal changeMoney)
         {
             return _money.Reverse().Where(x => x.Value <= changeMoney).FirstOrDefault();
