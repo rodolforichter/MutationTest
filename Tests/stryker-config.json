@@ -1,24 +1,26 @@
 {
-    "stryker-config":
-    {
-        "test-runner": "VSTest",
-        "reporters": [
-            "progress",
-            "html"
-        ],
-        "log-level": "info",
-        "log-file":true,
-        "timeout-ms": 10000,        
-        "max-concurrent-test-runners": 4,
-        "threshold-high": 80,
-        "threshold-low": 70,
-        "threshold-break": 60,
-        "mutate": [
-        ],
-        "excluded-mutations": [
-        ],
-        "ignore-methods": [
-            
-        ]
-    }
+  "stryker-config": {
+    "test-runner": "xUnit",
+    "reporters": [
+      "progress",
+      "html"
+    ],
+    "log-level": "info",
+    "log-file": true,
+    "timeout-ms": 10000,
+    "max-concurrent-test-runners": 4,
+    "threshold-high": 80,
+    "threshold-low": 70,
+    "threshold-break": 60,
+    "mutate": [
+    ],
+    "files-to-exclude": [
+
+    ],
+    "excluded-mutations": [
+    ],
+    "ignore-methods": [
+
+    ]
+  }
 }
