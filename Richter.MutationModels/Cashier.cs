@@ -25,11 +25,11 @@ namespace Richter.MutationModels
             new Money(100.00M, MoneyType.BankNote)
         };
 
-        private IList<Money>  _moneyUnavailable = new List<Money>();
+        private List<Money>  _moneyUnavailable;
 
         #endregion
 
-        public Cashier(IList<Money> moneyUnavailable)
+        public Cashier(List<Money> moneyUnavailable)
         {
             _moneyUnavailable = moneyUnavailable;
         }
@@ -46,7 +46,7 @@ namespace Richter.MutationModels
         /// <returns>IList<Money></returns>
         public IList<Money> GetChangeMoney(decimal purchaseValue, decimal enterValue)
         {
-            return GetChangeMoney(new PurchaseValue(purchaseValue), new CustomerValue(enterValue));
+            return GetChangeMoney(new Purchase(purchaseValue), new CustomerValue(enterValue));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Richter.MutationModels
         /// <param name="purchaseValue">purchaseValue</param>
         /// <param name="enterValue">enterValue</param>
         /// <returns>IList<Money></returns>
-        private IList<Money> GetChangeMoney(PurchaseValue purchaseValue, CustomerValue customerValue)
+        private IList<Money> GetChangeMoney(Purchase purchaseValue, CustomerValue customerValue)
         {
             IList<Money> moneyChange = new List<Money>();
 

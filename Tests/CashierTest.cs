@@ -70,7 +70,7 @@ namespace Tests
         [Trait("Wait-For-Exception", "Troco retornou muitos items do mesmo tipo")]
         public void Test_GetChangeMoney_Exceed_Max_Count_WaitFor_Exception()
         {
-            IList<Money> unavailableChangeMoney = new List<Money> {
+            List<Money> unavailableChangeMoney = new List<Money> {
                 { new Money(10.0M, MoneyType.BankNote) },
                 { new Money(5.0M, MoneyType.BankNote) },
                 { new Money(2.0M, MoneyType.BankNote) },
@@ -79,21 +79,24 @@ namespace Tests
                 { new Money(0.25M, MoneyType.Coin) },
                 { new Money(0.10M, MoneyType.Coin) }
             };
-            Assert.Throws<InvalidChangeMoneyException>(() => new Cashier(unavailableChangeMoney).GetChangeMoney(40.0M, 50.0M));
+            Cashier cashier = new Cashier(unavailableChangeMoney);
+            Assert.Throws<InvalidChangeMoneyException>(() =>  cashier.GetChangeMoney(40.0M, 50.0M));
         }
 
         [Fact]
         [Trait("Wait-For-Exception", "Valor da compra menor ou igual a 0")]
         public void Test_GetChangeMoney_PurchaseValue_MinorOrEqual_Zero_WaitFor_Exception()
-        {           
-            Assert.Throws<InvalidPurchaseValueException>(() => new Cashier().GetChangeMoney(0.0M, 50.0M));
+        {
+            Cashier cashier = new Cashier();
+            Assert.Throws<InvalidPurchaseValueException>(() => cashier.GetChangeMoney(0.0M, 50.0M));
         }
 
         [Fact]
         [Trait("Wait-For-Exception", "Valor dado pelo cliente igual a 0")]
         public void Test_GetChangeMoney_CustomerValue_MinorOrEqual_Zero_WaitFor_Exception()
         {
-            Assert.Throws<InvalidCustomerValueException>(() => new Cashier().GetChangeMoney(50.0M, 0.0M));
+            Cashier cashier = new Cashier();
+            Assert.Throws<InvalidCustomerValueException>(() => cashier.GetChangeMoney(50.0M, 0.0M));
         }
     }
 }

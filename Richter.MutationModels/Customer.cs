@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Richter.MutationModels
 {
-    public class CustomerValue
+    public class Customer
     {
         public decimal Value { get; private set; }
 
-        public CustomerValue(decimal value)
+        public Customer(decimal value)
         {
             Value = value;
             CheckValue();
