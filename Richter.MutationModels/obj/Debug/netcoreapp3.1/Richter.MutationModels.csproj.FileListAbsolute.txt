@@ -6,3 +6,10 @@ C:\POCs\Richter.MutationTest\Richter.MutationModels\bin\Debug\netcoreapp3.1\Rich
 C:\POCs\Richter.MutationTest\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.csproj.CoreCompileInputs.cache
 C:\POCs\Richter.MutationTest\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.dll
 C:\POCs\Richter.MutationTest\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.pdb
+C:\POCs\Mutation\Richter.MutationModels\bin\Debug\netcoreapp3.1\Richter.MutationModels.deps.json
+C:\POCs\Mutation\Richter.MutationModels\bin\Debug\netcoreapp3.1\Richter.MutationModels.dll
+C:\POCs\Mutation\Richter.MutationModels\bin\Debug\netcoreapp3.1\Richter.MutationModels.pdb
+C:\POCs\Mutation\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.AssemblyInfoInputs.cache
+C:\POCs\Mutation\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.AssemblyInfo.cs
+C:\POCs\Mutation\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.dll
+C:\POCs\Mutation\Richter.MutationModels\obj\Debug\netcoreapp3.1\Richter.MutationModels.pdb

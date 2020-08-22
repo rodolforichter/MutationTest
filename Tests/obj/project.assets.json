@@ -3489,38 +3489,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rodolfo.richter\\.nuget\\packages\\": {},
+    "C:\\Users\\Rodolfo Richter\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\POCs\\Richter.MutationTest\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\POCs\\Mutation\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "C:\\POCs\\Richter.MutationTest\\Tests\\Tests.csproj",
-      "packagesPath": "C:\\Users\\rodolfo.richter\\.nuget\\packages\\",
-      "outputPath": "C:\\POCs\\Richter.MutationTest\\Tests\\obj\\",
+      "projectPath": "C:\\POCs\\Mutation\\Tests\\Tests.csproj",
+      "packagesPath": "C:\\Users\\Rodolfo Richter\\.nuget\\packages\\",
+      "outputPath": "C:\\POCs\\Mutation\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\rodolfo.richter\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Rodolfo Richter\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/ListoSistemas/_packaging/ListoSistemas/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj": {
-              "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj"
+            "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj": {
+              "projectPath": "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj"
             }
           }
         }
@@ -3566,7 +3568,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

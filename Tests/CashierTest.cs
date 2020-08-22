@@ -38,10 +38,12 @@ namespace Tests
 
         [Theory]
         [MemberData(nameof(FullAvailableChangeMoney))]
-        [Trait("ReturnsOK-Troco", "Considera que caixa possui todas as Notas ou Moedas.")]
-        public void When_All_MoneyChangeAvailable_Returns_(decimal purchaseValue, decimal customerMoneyValue)
+        [Trait("ReturnsOK-Troco", "Retorna troco correto com todas as Moedas e Notas disponíveis")]
+        public void Test_GetChangeMoney_Full_ChangeMoney_AvailableShouldBeOK(decimal purchaseValue, decimal customerMoneyValue)
         {
-            IList<Money> changeMoney = new Cashier().GetChangeMoney(purchaseValue, customerMoneyValue);
+            Cashier cashier = new Cashier();
+
+            IList<Money> changeMoney = cashier.GetChangeMoney(purchaseValue, customerMoneyValue);
 
             decimal total = purchaseValue + changeMoney.Sum(x => x.Value);
 
@@ -50,8 +52,8 @@ namespace Tests
 
         [Theory]
         [MemberData(nameof(UnavailableChangeMoney))]
-        [Trait("ReturnsOK-Troco", "Considera que caixa possui Notas ou Moedas indisponíveis.")]
-        public void Test_Cashier_UnAvailable_ChangeMoney_ShouldBeOK(decimal purchaseValue, decimal customerMoneyValue, List<Money> unAvailableChangeMoney)
+        [Trait("ReturnsOK-Troco", "Retorna troco correto com Moedas e/ou Notas indisponíveis.")]
+        public void Test_GetChangeMoney_Partial_ChangeMoney_AvailableShouldBeOK(decimal purchaseValue, decimal customerMoneyValue, List<Money> unAvailableChangeMoney)
         {
             IList<Money> changeMoney = new Cashier(unAvailableChangeMoney).GetChangeMoney(purchaseValue, customerMoneyValue);
 
@@ -66,7 +68,7 @@ namespace Tests
 
         [Fact]
         [Trait("Wait-For-Exception", "Troco retornou muitos items do mesmo tipo")]
-        public void Test_ChangeMoney_Exceed_Max_Count_WaitFor_Exception()
+        public void Test_GetChangeMoney_Exceed_Max_Count_WaitFor_Exception()
         {
             IList<Money> unavailableChangeMoney = new List<Money> {
                 { new Money(10.0M, MoneyType.BankNote) },
@@ -82,14 +84,14 @@ namespace Tests
 
         [Fact]
         [Trait("Wait-For-Exception", "Valor da compra menor ou igual a 0")]
-        public void Test_PurchaseValue_MinorOrEqual_Zero_WaitFor_Exception()
+        public void Test_GetChangeMoney_PurchaseValue_MinorOrEqual_Zero_WaitFor_Exception()
         {           
             Assert.Throws<InvalidPurchaseValueException>(() => new Cashier().GetChangeMoney(0.0M, 50.0M));
         }
 
         [Fact]
         [Trait("Wait-For-Exception", "Valor dado pelo cliente igual a 0")]
-        public void Test_CustomerValue_MinorOrEqual_Zero_WaitFor_Exception()
+        public void Test_GetChangeMoney_CustomerValue_MinorOrEqual_Zero_WaitFor_Exception()
         {
             Assert.Throws<InvalidCustomerValueException>(() => new Cashier().GetChangeMoney(50.0M, 0.0M));
         }
