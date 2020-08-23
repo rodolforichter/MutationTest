@@ -46,7 +46,7 @@ namespace Richter.MutationModels
         /// <returns>IList<Money></returns>
         public IList<Money> GetChangeMoney(decimal purchaseValue, decimal enterValue)
         {
-            return GetChangeMoney(new Purchase(purchaseValue), new CustomerValue(enterValue));
+            return GetChangeMoney(new Purchase(purchaseValue), new Customer(enterValue));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Richter.MutationModels
         /// <param name="purchaseValue">purchaseValue</param>
         /// <param name="enterValue">enterValue</param>
         /// <returns>IList<Money></returns>
-        private IList<Money> GetChangeMoney(Purchase purchaseValue, CustomerValue customerValue)
+        private IList<Money> GetChangeMoney(Purchase purchaseValue, Customer customerValue)
         {
             IList<Money> moneyChange = new List<Money>();
 
@@ -74,7 +74,7 @@ namespace Richter.MutationModels
                 changeMoney = changeMoney - vlr.Value;
             }
 
-            CheckMaxQuantityByMoneyType(moneyChange);
+            //CheckMaxQuantityByMoneyType(moneyChange); //TODO: Remover para testar a alteração realizada
 
             return moneyChange;
         }

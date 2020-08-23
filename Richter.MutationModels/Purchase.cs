@@ -2,11 +2,11 @@
 
 namespace Richter.MutationModels
 {
-    public struct PurchaseValue
+    public struct Purchase
     {
         public decimal Value { get; private set; }
 
-        public PurchaseValue(decimal value)
+        public Purchase(decimal value)
         {
             Value = value;
             CheckValue();

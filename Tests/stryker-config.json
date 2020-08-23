@@ -1,6 +1,6 @@
 {
   "stryker-config": {
-    "test-runner": "xUnit",
+    "test-runner": "VSTest",
     "reporters": [
       "progress",
       "html"
