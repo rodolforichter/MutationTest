@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xBWGnHE2YQhTyZdXjNaoTM8fcmJlTJ4diub3N7xNYMXXAXOGEAN4XasL8XE2hTNU7F5MCUQtmsghIhRxyjqNnA==",
+  "dgSpecHash": "FcEdLCkqP91BwDMLmi0JE5ASDyCWn5DhKkMGt3NTH1KsE2aV7wkXiL743/DiWkBPUKmvm8pK2wE8dbkzGRBKtA==",
   "success": true,
-  "projectFilePath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj",
+  "projectFilePath": "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
