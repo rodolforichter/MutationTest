@@ -1,35 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj": {}
+    "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj": {}
   },
   "projects": {
-    "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj": {
+    "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj",
+        "projectUniqueName": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj",
         "projectName": "Richter.MutationModels",
-        "projectPath": "C:\\POCs\\Mutation\\Richter.MutationModels\\Richter.MutationModels.csproj",
-        "packagesPath": "C:\\Users\\Rodolfo Richter\\.nuget\\packages\\",
-        "outputPath": "C:\\POCs\\Mutation\\Richter.MutationModels\\obj\\",
+        "projectPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\Richter.MutationModels.csproj",
+        "packagesPath": "C:\\Users\\rodolfo.richter\\.nuget\\packages\\",
+        "outputPath": "C:\\POCs\\Richter.MutationTest\\Richter.MutationModels\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Rodolfo Richter\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\rodolfo.richter\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/ListoSistemas/_packaging/ListoSistemas/nuget/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
