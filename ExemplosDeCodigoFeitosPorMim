@@ -1,0 +1,234 @@
+public static class PipelineBehaviorConfiguration
+    {
+        public static void AddPipelineBehaviorValidation(this IServiceCollection services)
+        {
+            services.Scan(
+               scan => scan.FromApplicationDependencies().AddClasses(@class => @class.AssignableTo(typeof(IShallowValidator<>))).AsImplementedInterfaces())
+               .AddScoped(typeof(IPipelineBehavior<,>), typeof(ShallowValidatorBehavior<,>));
+
+            services.Scan(
+                scan => scan.FromApplicationDependencies().AddClasses(@class => @class.AssignableTo(typeof(IDeepValidator<>))).AsImplementedInterfaces())
+                .AddScoped(typeof(IPipelineBehavior<,>), typeof(DeepValidatorBehavior<,>));
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionProcessorBehavior<,>));
+
+            services.AddMediatR(typeof(MediatorHandler));
+        }
+    }
+	
+	using FluentValidation;
+using Infra.Crosscutting.Core.CQRS;
+using MediatR;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Infra.Crosscutting.Core.IPipelineBehavior
+{
+    public abstract class BaseValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, IResult>
+    {
+        protected readonly IEnumerable<IValidator<TRequest>> Validators;
+
+        protected BaseValidatorBehavior(IEnumerable<IValidator<TRequest>> validators)
+        {
+            Validators = validators;
+        }
+
+        public Task<IResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<IResult> next)
+        {
+            Debug.WriteLine($"Obtendo validador");
+
+            IValidator<TRequest> validator = Validators.Select(v => v).FirstOrDefault();
+
+            if (HasNoValidator(validator))
+            {
+                Debug.WriteLine("Validador não encontrado");
+                return next();
+            }
+            else
+            {
+                Debug.WriteLine($"Validador obtido com sucesso {validator.GetType().Name }");
+            }
+
+            IList<string> errors = validator
+                .Validate(request).Errors
+                .Where(e => e != null)
+                .Select(f => f?.ErrorMessage)
+                .ToList();
+
+            Debug.WriteLine($"Obtendo errors {string.Join(", ", errors) }");
+
+            return errors.Any() ? GetErrors(errors) : next();
+        }
+
+        /// <summary>
+        /// Se não tiver um validator, sendo Deep ou Shallow deve:
+        /// Não tem Shallow --> Vai para o Deep
+        /// Não tem Deep --> Vai para o Handler ou próxima fatia
+        /// </summary>
+        /// <param name="validator"></param>
+        /// <returns>true|false</returns>
+        private static bool HasNoValidator(IValidator<TRequest> validator)
+        {
+            return validator == null;
+        }
+
+        private Task<IResult> GetErrors(IEnumerable<string> failures)
+        {
+            IResult result = new CommandResult(failures);
+            return Task.FromResult(result);
+        }
+    }
+    public class DeepValidatorBehavior<Command, TResponse> : BaseValidatorBehavior<Command, IResult>
+    {
+        public DeepValidatorBehavior(IEnumerable<IDeepValidator<Command>> validators) : base(validators)
+        {
+        }
+    }
+
+    public class ShallowValidatorBehavior<Command, TResponse> : BaseValidatorBehavior<Command, IResult>
+    {
+        public ShallowValidatorBehavior(IEnumerable<IShallowValidator<Command>> validators) : base(validators)
+        {
+        }
+    }
+}
+using FluentValidation;
+
+namespace Infra.Crosscutting.Core.IPipelineBehavior
+{
+    public interface IDeepValidator<T> : IValidator<T>
+    {
+    }
+}
+using FluentValidation;
+
+namespace Infra.Crosscutting.Core.IPipelineBehavior
+{
+    public interface IShallowValidator<T> : IValidator<T>
+    {
+    }
+}
+public static void AddHttpFactoryConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            string baseAddress = configuration["SI:BaseAddress"].ToString();
+            int retryCount = int.Parse(configuration["SI:Poly:RetryCount"]);
+            int retrySeconds = int.Parse(configuration["SI:Poly:SecondsRetry"]);
+
+            services.AddHttpClient<Service>(Service.Name, s =>
+             {
+                 s.BaseAddress = new Uri(baseAddress);
+             }).AddPolicyHandler(GetRetryPolicy(retryCount, retrySeconds, ALQAEDAService.Name));
+
+           
+        }
+		
+		private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicyIdentity(int retryCount, int retrySeconds, string identity)
+        {
+            return HttpPolicyExtensions.HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound || msg.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                .WaitAndRetryAsync(retryCount, retryAttempt => TimeSpan.FromSeconds(retrySeconds), (exception, tsRetry, retryCount, ctx) =>
+                {
+                    Debug.WriteLine($"Service: {identity} -> Tentando: {retryCount}");
+                    new LogModel().RecLog("401 e 404:WaitAndRetryAsync -->", $"Erro ao tentar acessar o service: {identity}", LogType.LogWarning);
+                });
+        }
+		
+		using ExternalServices.SancoesInternacionais.Dto;
+using ExternalServices.SancoesInternacionais.Services;
+using ExternalServices.SancoesInternacionais.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Moq;
+using Moq.Protected;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Test.InternationalSanctions
+{
+    public class InternationalSanctionsServiceTest
+    {
+       
+
+        public InternationalSanctionsServiceTest()
+        {
+            //Arrange
+            var inMemorySettings = new Dictionary<string, string> {
+                {}, 
+                {},
+                {},
+                {},
+                {},
+                {""},
+                {"" },
+                {"xx:BaseAddress","http://www.qquercoisa.com.br" },
+                { "" }
+        };
+
+            _config = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();            
+
+            _logger = new Mock<ILoggerDataSanctions>();
+
+            _mockFactoryIdentity = new Mock<IHttpClientFactory>();
+
+            _mockFactorySanctions = new Mock<IHttpClientFactory>();
+
+            _mockFatfSanctions = new Mock<IHttpClientFactory>();
+
+        
+        }
+
+       
+        [Fact]
+        public async void Call_Search_InternationalSanctions_ShouldBeOK()
+        {
+            var handlerIdentity = new Mock<HttpMessageHandler>();
+
+            handlerIdentity.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content =  new StringContent("{'access_token':'tokenretornado'}")
+            });
+
+            var client = new HttpClient(handlerIdentity.Object);
+            _mockFactoryIdentity.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(client);
+
+            var handlerSanctionsCommon = new Mock<HttpMessageHandler>();
+            handlerSanctionsCommon.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{'document_number': false, 'name': false, 'StatusCode': 200 }")
+            });
+
+            var sanctionsCommonClient = new HttpClient(handlerSanctionsCommon.Object);
+
+            _mockFactorySanctions.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(sanctionsCommonClient);
+
+            var handlerSanctionsFatf = new Mock<HttpMessageHandler>();
+
+            handlerSanctionsFatf.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{'country': false,'StatusCode': 200}")
+            });
+
+            var sanctionsFatfClient = new HttpClient(handlerSanctionsFatf.Object);
+
+            _mockFatfSanctions.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(sanctionsFatfClient);
+
+            var result = await _service.GetResult(new AffiliateSanctionsDto() { Country = "Brazil", Document = "19545545544", Name = "José da Silva" });
+
+            Assert.True(result.Item1);
+            Assert.True(result.Item2 == string.Empty);
+            Assert.True(result.Item3.Length == 5);
+        }
+    }
+}
+
